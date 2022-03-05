@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}
+  Suivi des commandes
+{% endblock %}
+{% block navbarleft %}
+  <div class="navbar__left">
+    <a class="active_link" href="#">Admin</a>
+    <a href="#">Aide</a>
+</div>
+{% endblock %}
+{% block main %}
+  <main>
+    <div class="main__container">
+      <!-- MAIN TITLE STARTS HERE -->
+      <div class="main__title">
+        <img src="../static/assets/hellok.svg" alt="" />
+        <div class="main__greeting">
+          <h1>Suivi des commandes</h1>
+          <p>Bienvenue sur votre console de suivi de commandes</p>
+        </div>
+      </div>
+      <!-- MAIN TITLE ENDS HERE -->
+      <!-- MAIN CARDS STARTS HERE -->
+      <div class="main__cards">
+        <div class="card">
+          <i class="fa fa-thumbs-up fa-2x text-yellow" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Nombres de commandes finalisées</p>
+            <span class="font-bold text-title">{{ nbcmdFinal }}</span>
+          </div>
+        </div>
+        <div class="card">
+          <i class="fa fa-calendar fa-2x text-green" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Nombre de commande en cours</p>
+            <span class="font-bold text-title">{{ nbcmdEnCours }}</span>
+          </div>
+        </div>
+        <div class="card">
+          <i class="fas fa-thermometer-full fa-2x text-red" aria-hidden="true"></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Nombre de commandes en attente</p>
+            <span class="font-bold text-title">{{ nbcmdEnAttente }}</span>
+          </div>
+        </div>
+        <div class="card">
+          <a href="{{url_for('deleteAllCmd')}}"><i class="fas fa-power-off fa-2x text-black" aria-hidden="true"></a></i>
+          <div class="card_inner">
+            <p class="text-primary-p">Réinitialiser l'ensemble des compteurs</p>
+          </div>
+        </div>
+      </div>
+    <!-- MAIN CARDS ENDS HERE -->
+      <!-- CHARTS STARTS HERE -->
+      {% if lists == 0 %}
+      <div class="info">Il n'y a aucune commande enregistrée
+      {% else %}
+      <div class="info">
+        {% for list_, items in lists.items() %}
+        <div class="cardinfo">
+          
+          {% if list_.status == 0 %}
+          <div class="urgent">
+            {% else %}
+          <div class="encours">
+            {% endif %}
+            <div class="numtable">
+              <h1>Table {{ list_.numtable }}</h1>
+                {% if list_.status == 0 %}
+                <p>En attente de prise en charge</p>
+                {% else %}
+                <p>En cours de préparation</p>
+                {% endif %}
+            </div>
+            <a href="{{url_for('deleteCmd', id = list_.idcommande )}}" class="delcmd"><i class="fas fa-trash-alt"></i></a>
+            <i class="fas fa-thermometer-full" aria-hidden="true"></i>
+          </div>
+          <div class="liste">
+            <ul class="un">
+              {% for item in items %}
+              <li><span class="showquantite">{{ item[3] }} </span>{{ item[4] }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+              {% if list_.status == 0 %}
+                <div class="actionsuivi"><a href="../prendreencharge/{{ list_.idcommande }}"><input class="myButton priseencharge" type="submit" value="Prendre en charge"></a></div>
+              {% else %}
+                <div class="actionsuivi"><a href="../finaliser/{{ list_.idcommande }}"><input class="myButton finaliser" type="submit" value="Valider la commande"></a></div>
+              {% endif %}
+        </div>
+        {% endfor %}
+
+      <!-- CHARTS ENDS HERE -->
+    </div>
+    {% endif %}
+  </main>
+{% endblock %}
+{% block script %}
+<script>
+  var numco = {{ numerocommande | safe }};
+  console.log(numco)
+  function CheckOrder() {
+    $.get('/lastorder', data => {
+      if (data > numco){
+        console.log('il faut rafraichir la page');
+        location.reload();
+      }
+  });
+  }
+
+  verif = setInterval(CheckOrder, 10000);
+
+</script>
+{% endblock %}   
+

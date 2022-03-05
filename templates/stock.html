@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block title %}
+  Gestion du stock
+{% endblock %}
+{% block navbarleft %}
+  <div class="navbar__left">
+    <a class="active_link" href="#">Admin</a>
+    <a href="#">Aide</a>
+</div>
+{% endblock %}
+{% block main %}
+<main>
+  <div class="main__container">
+    <!-- MAIN TITLE STARTS HERE -->
+
+  <div class="main__title">
+    <img src="../static/assets/hellon.svg" alt="" />
+    <div class="main__greeting">
+      <h1>Gestion du stock</h1>
+      <p>Définissez les quantités disponibles pour chacun de vos articles</p>
+    </div>
+  </div>
+
+    <!-- MAIN TITLE ENDS HERE -->
+
+  <!-- MAIN CARDS STARTS HERE -->
+  <div class="main__cards">
+    <div class="card">
+      <i class="fas fa-infinity fa-2x text-green" aria-hidden="true"></i>
+      <div class="card_inner">
+        <p class="text-primary-p">Nombres d'articles en quantité infinie</p>
+        <span class="font-bold text-title">47</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <i class="fas fa-battery-quarter fa-2x text-red" aria-hidden="true"></i>
+      <div class="card_inner">
+        <p class="text-primary-p">Nombres d'articles en quantité limitée</p>
+        <span class="font-bold text-title">2</span>
+      </div>
+    </div>
+  </div>
+  <!-- MAIN CARDS ENDS HERE -->
+
+    <!-- CHARTS STARTS HERE -->
+    <div class="info">
+
+      <div class="cardinfo">
+        <div class="urgent">
+          <div>
+            <h1>Gestion des stocks</h1>
+            <p>Définissez les quantités pour chacun de vos articles (illimité par défaut)</p>
+          </div>
+          <i class="fas fa-battery-quarter" aria-hidden="true"></i>
+        </div>
+        <div class="item_list">
+          <div class="accordion">
+            <h1>Les entrées</h1>
+            <div class="actions"><i class="fas fa-angle-down"></i></div>
+          </div>
+         <div class="panel">
+            <div class="item_list2">
+              <div class="card4">
+                <h1>Le cornet de frites</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+                <div class="card4">
+                  <h1>Le cake salé</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+                </div>
+              <div class="card4">
+                <h1>Le saucisson sec 150g</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                <h1>Les onions rings</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                  <h1>Trio au fromage</h1>
+                  <div class="actions"><span class="qty">12 </span><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                  <h1>La planche mixte</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+            </div>                  
+          </div>
+          <div class="accordion">
+            <h1>Les salades</h1>
+            <div class="actions"><i class="fas fa-angle-down"></i></div>
+          </div>
+          <div class="panel">
+            <div class="item_list2">
+              <div class="card4">
+                <h1>La Chèvre chaud</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+                <div class="card4">
+                  <h1>La Caesar au poulet</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+                </div>
+              <div class="card4">
+                <h1>La Hercule Poirot</h1>
+                <div class="actions"><span class="qty">3 </span><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                <h1>La Chef</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+            </div>                  
+          </div>
+          <div class="accordion">
+            <h1>Les viandes et poissons</h1>
+            <div class="actions"><i class="fas fa-angle-down"></i></div>
+          </div>
+          <div class="panel">
+            <div class="item_list2">
+              <div class="card4">
+                <h1>Onglet</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+                <div class="card4">
+                  <h1>Ribs</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+                </div>
+              <div class="card4">
+                <h1>Cabillaud</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                <h1>Sole</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+            </div>                  
+          </div>
+          <div class="accordion">
+            <h1>Les hamburgers</h1>
+            <div class="actions"><i class="fas fa-angle-down"></i></div>
+          </div>
+          <div class="panel">
+            <div class="item_list2">
+              <div class="card4">
+                <h1>Le Ste Catherine</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+                <div class="card4">
+                  <h1>Le Randonneur</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+                </div>
+              <div class="card4">
+                <h1>Le Country</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                <h1>Le Chti'mi</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+            </div>                  
+          </div>
+          <div class="accordion">
+            <h1>Les boissons</h1>
+            <div class="actions"><i class="fas fa-angle-down"></i></div>
+          </div>
+          <div class="panel">
+            <div class="item_list2">
+              <div class="card4">
+                <h1>Bière Pression</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+                <div class="card4">
+                  <h1>Coca Cola</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+                </div>
+              <div class="card4">
+                <h1>Orangina</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                <h1>Eau gazeuse</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+            </div>                  
+          </div>
+          <div class="accordion">
+            <h1>Les desserts</h1>
+            <div class="actions"><i class="fas fa-angle-down"></i></div>
+          </div>
+          <div class="panel">
+            <div class="item_list2">
+              <div class="card4">
+                <h1>La mousse gourmande au chocolat</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+                <div class="card4">
+                  <h1>La brioche « façon pain perdu » et glace vanille</h1>
+                  <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+                </div>
+              <div class="card4">
+                <h1>Dame blanche</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+              <div class="card4">
+                <h1>Le merveilleux</h1>
+                <div class="actions"><i class="fas fa-infinity"></i><i class="far fa-edit"></i></div>
+              </div>
+            </div>                  
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- CHARTS ENDS HERE -->
+  </div>
+</main>
+{% endblock %}       
+

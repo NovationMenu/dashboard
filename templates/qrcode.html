@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}
+  Génération des QRcodes
+{% endblock %}
+{% block navbarleft %}
+  <div class="navbar__left">
+    <a class="active_link" href="#">Admin</a>
+    <a href="#">Aide</a>
+</div>
+{% endblock %}
+{% block main %}
+<main>
+  <div class="main__container">
+    <!-- MAIN TITLE STARTS HERE -->
+
+  <div class="main__title">
+    <img src="../static/assets/hellob.svg" alt="" />
+    <div class="main__greeting">
+      <h1>Génération des QRcodes</h1>
+      <p>Définissez les quantités disponibles pour chacun de vos articles</p>
+    </div>
+  </div>
+
+    <!-- MAIN TITLE ENDS HERE -->
+
+  <!-- MAIN CARDS STARTS HERE -->
+  <div class="main__cards">
+    <div class="card">
+      <i class="fas fa-list-ul fa-2x text-green" aria-hidden="true"></i>
+      <div class="card_inner">
+        <p class="text-primary-p">Nombres de tables disposant d'un QRcode</p>
+        <span class="font-bold text-title">{{data}}</span>
+      </div>
+    </div>
+
+  </div>
+  <!-- MAIN CARDS ENDS HERE -->
+    <div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert--{{ category }} alert-dismissible fade show" role="alert">
+              <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+    <!-- CHARTS STARTS HERE -->
+    <div class="info">
+
+      <div class="cardinfo">
+        <div class="urgent">
+          <div>
+            <h1>Gestion des QRcodes</h1>
+            <p>Modifiez le nombre de tables et générer les QRcodes associés</p>
+          </div>
+          <i class="fas fa-qrcode" aria-hidden="true"></i>
+        </div>
+        <div class="item_list">
+          <div class="card1">
+            <h1>Modifiez le nombre de tables</h1>
+            <div class="actions"><span class="qty"> {{data}} </span><a href="#qrcode-modal"><i class="far fa-edit"></i></a></div>
+          </div>
+          <div id="qrcode-modal" class="modal">
+            <div class="modal__content">
+                <h1>Editez le nombre de tables</h1>
+                <form action="{{url_for('updatetable')}}" method="post">
+                  <label for="nbretable">Nombre de tables</label>
+                  <input type="text" id="nbretable" name="nbretable" placeholder="Entrez le nombre de tables">
+                  <br>
+                  <input class="myButton" type="submit" value="Valider">
+                </form>
+                <a href="#" class="modal__close">&times;</a>
+            </div>
+        </div> 
+          <div class="card1">
+            <h1>Générer un QRCode</h1>
+            <form class="genqr" action="{{url_for('generateqrcode')}}" method="POST">
+            <div class="actions">Séléctionnez le n° de table :
+              <select name="qrcodegen" id="qrcodegen">
+                {% for i in range(data) %}
+                <option value="{{ i+1 }}">{{ i+1 }}</option>
+                {% endfor %}
+              </select>
+              </div>
+              <div class="actions"><button type="submit" class="qrcode-btn"><i class="fas fa-qrcode"></i></button></div>
+          </div>
+        </form>
+          <div class="card1">
+            <h1>Editez un jeu de QRcodes</h1>
+            <div class="actions"><a href="{{url_for('generateallqrcode')}}"><i class="fas fa-download"></i></a></div>
+          </div>
+          <div class="card1">
+            <h1>Régénérez les QRcodes</h1>
+            <div class="actions"><a href="{{url_for('generateallqrcode')}}"><i class="fas fa-download"></i></a></div>
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+    <!-- CHARTS ENDS HERE -->
+  </div>
+</main>
+{% endblock %}       
+

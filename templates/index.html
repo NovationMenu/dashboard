@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <title>Authentification</title>
+</head>
+<body>
+    <div class="loginpage">
+        <input type="radio" checked id="toggle--login" name="toggle" class="ghost" />
+        <input type="radio" id="toggle--signup" name="toggle" class="ghost" />
+      
+        <img class="logo framed" src="../static/assets/logologin2.png" alt=" logo" />
+      
+        <form class="form form--login framed" action={{url_for('suivi')}}>
+          <input type="email" placeholder="Identifiant" class="input input--top" />
+          <input type="password" placeholder="Mot de passe" class="input" />
+          <input type="submit" value="Connexion" class="input input--submit" />
+          
+          <label for="toggle--signup" class="text text--small text--centered">Nouveau ? <b>Inscrivez-vous</b></label>
+        </form>
+        
+        <form class="form form--signup framed">
+          <h2 class="text text--centered text--omega">Reprenez le <b>contrôle</b> de votre carte</br>et gagnez en <b>réactivité</b>.</h2>
+      
+          <input type="email" placeholder="Email" class="input input--top" />
+          <input type="password" placeholder="Mot de passe" class="input" />
+          <input type="text" placeholder="Identifiant" class="input" />
+          <input type="submit" value="Inscrivez-vous" class="input input--submit" />
+          
+          <label for="toggle--login" class="text text--small text--centered">Déjà inscrit ? <b>Connectez-vous</b></label>
+        </form>
+      
+        <div class="legal">
+          <a class="text text--small" href="javascript:;">Mot de passe perdu ?</a>
+        </div>
+      
+        <div class="fullscreen-bg"></div>
+    </div>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

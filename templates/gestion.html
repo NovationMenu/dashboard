@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block title %}
+  Gestion de la carte
+{% endblock %}
+{% block navbarleft %}
+  <div class="navbar__left">
+    <a class="active_link" href="#">Admin</a>
+    <a href="#">Aide</a>
+  </div>
+{% endblock %}
+{% block main %}
+<main>
+  <div class="main__container">
+    <!-- MAIN TITLE STARTS HERE -->
+    <div class="main__title">
+      <img src="../static/assets/hello8.svg" alt="" />
+      <div class="main__greeting">
+        <h1>Gestion de votre carte</h1>
+        <p>Bienvenue sur votre console d'administration de votre carte</p>
+      </div>
+    </div>
+    <!-- MAIN TITLE ENDS HERE -->
+    <!-- MAIN CARDS STARTS HERE -->
+    <div class="main__cards">
+      <div class="card">
+        <i class="fas fa-th-list fa-2x text-green" aria-hidden="true"></i>
+        <div class="card_inner">
+          <p class="text-primary-p">Nombre de catégories total</p>
+          <span class="font-bold text-title">{{ nbreCat }}</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-th fa-2x text-green" aria-hidden="true"></i>
+        <div class="card_inner">
+          <p class="text-primary-p">Nombre d'articles total</p>
+          <span class="font-bold text-title">{{ nbreArticle }}</span>
+        </div>
+      </div>
+      <div class="card">
+        <i class="fas fa-th-list fa-2x text-red" aria-hidden="true"></i>
+        <div class="card_inner">
+          <p class="text-primary-p">Nombre de catégories inactives</p>
+          <span class="font-bold text-title">{{ nbreCatInvisible }}</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-th fa-2x text-red" aria-hidden="true"></i>
+        <div class="card_inner">
+          <p class="text-primary-p">Nombre d'articles inactifs</p>
+          <span class="font-bold text-title">{{ nbreArticleInvisible }}</span>
+        </div>
+      </div>
+    </div>
+    <!-- MAIN CARDS ENDS HERE -->
+    <div>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert--{{ category }} alert-dismissible fade show" role="alert">
+              <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+      <!-- CHARTS STARTS HERE -->
+    <div class="info">
+        <div class="cardinfo">
+          <div class="urgent">
+            <div>
+              <h1>Gestion des catégories</h1>
+              <p>Modifier, Classer, Supprimer les catégories</p>
+            </div>
+            <i class="fas fa-th-list" aria-hidden="true"></i>
+          </div>
+          <div class="item_list">
+            {% for value in data %}
+            {% if value.visibilite == true %}
+            <div class="card1">
+              <h1>{{ value.nom }}</h1>
+              <!-- <div class="actions"><i class="fas fa-caret-down"></i><i class="fas fa-caret-up"></i><a href="#categorie-modal{{ value.idcategorie }}"><i class="far fa-edit"></i></a><a href="../rendreinvisiblecategorie/{{ value.idcategorie }}"><i class="far fa-eye-slash"></i></a><a href="{{url_for('deleteCat', id = value.idcategorie )}}"><i class="fas fa-trash-alt"></i></a></div> -->
+              <div class="actions"><a href="{{url_for('downcat', id = value.idcategorie )}}"><i class="fas fa-caret-down firstdown"></i></a><a href="{{url_for('upcat', id = value.idcategorie )}}"><i class="fas fa-caret-up lastup"></i></a><a href="#categorie-modal{{ value.idcategorie }}"><i class="far fa-edit"></i></a><a href="{{url_for('rendreinvisiblecategorie', id = value.idcategorie )}}"><i class="far fa-eye-slash"></i></a><a href="{{url_for('deleteCat', id = value.idcategorie )}}"><i class="fas fa-trash-alt"></i></a></div>
+            </div>
+            {% else %}
+            <div class="card1">
+              <h1 class="barre">{{ value.nom }}</h1>
+              <div class="actions"><a href="{{url_for('downcat', id = value.idcategorie )}}"><i class="fas fa-caret-down firstdown"></i></a><a href="{{url_for('upcat', id = value.idcategorie )}}"><i class="fas fa-caret-up lastup"></i></a><a href="#categorie-modal{{ value.idcategorie }}"><i class="far fa-edit"></i></a><a href="{{url_for('rendrevisiblecategorie', id = value.idcategorie )}}"><i class="far fa-eye"></a></i> <a href="{{url_for('deleteCat', id = value.idcategorie )}}"><i class="fas fa-trash-alt"></i></a></div>
+            </div>
+            {% endif %}
+            <div id="categorie-modal{{ value.idcategorie }}" class="modal">
+              <div class="modal__content">
+                  <h1>Modifier la catégorie</h1>
+                  <form action="{{url_for('editerCategorie')}}" method="post">
+                    <input type="hidden" name="idcategorie" value="{{ value.idcategorie }}">
+                    <input type="hidden" name="visibilite" value="{{ value.visibilite }}">
+                    <input type="hidden" name="position" value="{{ value.position }}">
+                    <label for="nomarticle">Nom de la catégorie</label>
+                    <input type="text" id="nomcatgorie" name="nomcatgorie" value="{{ value.nom }}">
+                    <input class="myButton" type="submit" value="Modifier la catégorie">
+                  </form>
+                  <a href="#" class="modal__close">&times;</a>
+              </div>
+          </div> 
+            {% endfor %}
+          </div>
+        </div>
+        <div class="cardinfo">
+          <div class="urgent">
+            <div>
+              <h1>Gestion des articles</h1>
+              <p>Ajouter, Modifier, Classer, Supprimer les articles</p>
+            </div>
+            <i class="fas fa-th" aria-hidden="true"></i>
+          </div>
+          <div class="item_list">
+            {% for list_, items in data2.items() %}
+            <div class="accordion">
+              {% if list_.visibilite == true %}
+              <h1>{{ list_.nom }}</h1>
+              {% else %}
+              <h1 class="barre">{{ list_.nom }}</h1>
+              {% endif %}
+              <div class="actions"><i class="fas fa-angle-down"></i></div>
+            </div>
+            <div class="panel">
+              <div class="item_list2">
+                {% for item in items %}
+                {% if item[0].visibilite == true %}
+                <div class="card5">
+                  <h1 class="Name">{{ item[0].nom }}</h1>
+                  <div class="Actions"><a href="{{url_for('downart', id = item[0].idarticle )}}"><i class="fas fa-caret-down firstdown"></i></a><a href="{{url_for('upart', id = item[0].idarticle )}}"><i class="fas fa-caret-up lastup"></i></a><a href="#article-modal{{ item[0].idarticle }}"><i class="far fa-edit"></i></a><a href="../rendreinvisiblearticle/{{ item[0].idarticle }}"><i class="far fa-eye-slash"></i></a><a href="{{url_for('delete', id = item[0].idarticle )}}"><i class="fas fa-trash-alt"></i></a></div>
+                  <div class="Description">{{ item[0].description }}</div>
+                  <div class="Price">{{ item[0].prix }} €</div>
+                </div>
+                {% else %}
+                <div class="card5">
+                  <h1 class="Name barre">{{ item[0].nom }}</h1>
+                  <div class="Actions"><a href="{{url_for('downart', id = item[0].idarticle )}}"><i class="fas fa-caret-down firstdown"></i></a><a href="{{url_for('upart', id = item[0].idarticle )}}"><i class="fas fa-caret-up lastup"></i></a><a href="#article-modal{{ item[0].idarticle }}"><i class="far fa-edit"></i></a><a href="../rendrevisiblearticle/{{ item[0].idarticle }}"><i class="far fa-eye"></i></a><a href="{{url_for('delete', id = item[0].idarticle )}}"><i class="fas fa-trash-alt"></i></a></div>
+                  <div class="Description barre">{{ item[0].description }}</div>
+                  <div class="Price barre">{{ item[0].prix }} €</div>
+                </div>
+                {% endif %}
+                <div id="article-modal{{ item[0].idarticle }}" class="modal">
+                  <div class="modal__content">
+                      <h1>Modifier l'article</h1>
+                      <form action="{{url_for('editerArticle')}}" method="post">
+                        <input type="hidden" name="idarticle" value="{{ item[0].idarticle }}">
+                        <input type="hidden" name="idcategorie" value="{{ item[0].idcategorie }}">
+                        <input type="hidden" name="visibilite" value="{{ item[0].visibilite }}">
+                        <input type="hidden" name="position" value="{{ item[0].position }}">
+                        <label for="nomarticle">Nom de l'article</label>
+                        <input type="text" id="nomarticle" name="nomarticle" value="{{ item[0].nom }}">
+                        <label for="description">Description</label>
+                        <div class="textwrapper"><textarea cols="2" rows="10"  id="description" name="description">{{ item[0].description }}</textarea></div>
+                          <label for="prixarticle">Prix de l'article</label>
+                          <input type="text" id="prixarticle" name="prixarticle" value="{{ item[0].prix }}">
+                        <br>
+                        <input class="myButton" type="submit" value="Modifier l'article">
+                      </form>
+                      <a href="#" class="modal__close">&times;</a>
+                  </div>
+              </div> 
+                {% endfor %}
+              </div>                  
+            </div>
+            {% endfor %}
+            <div class="card1">
+              <h1>Ajouter un article</h1>
+              <div class="actions"><a href="#demo-modal"><i class="fas fa-plus"></i></a></div>
+            </div>
+            <div id="demo-modal" class="modal">
+              <div class="modal__content">
+                  <h1>Ajouter un article</h1>
+                  <form action="{{url_for('ajoutArticle')}}" method="post">
+                    <label for="nomarticle">Nom de l'article</label>
+                    <input type="text" id="nomarticle" name="nomarticle">
+                    <label for="description">Description</label>
+                    <div class="textwrapper"><textarea cols="2" rows="10"  id="description" name="description"></textarea></div>
+                    <label for="selectCategory">Choisissez une catégorie dans la liste ou créez-en une nouvelle :</label>
+                    <input type="text" list="categorieSelection" id="selectCategory" name="categorieSelection" autocomplete="off">
+                    <datalist id="categorieSelection">
+                        {% for value in data %}
+                        <option data-value="{{ value.idcategorie }}">{{ value.nom }}</option>
+                        {% endfor %}
+                      </datalist>
+                      <label for="prixarticle">Prix de l'article</label>
+                      <input type="text" id="prixarticle" name="prixarticle">
+                    <br>
+                    <input class="myButton" type="submit" value="Ajouter l'article">
+                  </form>
+                  <a href="#" class="modal__close">&times;</a>
+              </div>
+          </div>              
+
+          </div>
+        </div>
+    </div>
+    <!-- CHARTS ENDS HERE -->
+  </div>
+</main>
+{% endblock %}       
+
