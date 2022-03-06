@@ -128,7 +128,7 @@ def upart(id):
 @app.route("/disconnect")
 def disconnect():
     url = request.referrer
-    return redirect("https://auth.novation.menu/logout?rd="+url)
+    return redirect("https://auth.novation-menu.com/logout?rd="+url)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
