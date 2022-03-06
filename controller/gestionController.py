@@ -457,7 +457,7 @@ class GestionController():
                 # URL en prod
                 # url = url.replace("admin-","").replace("qrcode", numtable)
                 print(url)
-                r = requests.post('https://2me.nu/addnewurl', json={"url": url})
+                r = requests.post('https://me9.eu/addnewurl', json={"url": url})
                 print('r')
                 print(r.text)
                 table = Tables(nom="table"+str(table+1), url=r.text)
